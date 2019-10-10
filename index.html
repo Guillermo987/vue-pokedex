@@ -21,29 +21,20 @@
          <aside class="pokedex-filters">
             <!-- Searchbox -->
             <div class="nice-input-wrapper">
-               <input type="text" placeholder="Search by name" class="nice-input">
+               <input type="text" placeholder="Search by name" class="nice-input" v-model="searchText">
                <span class="focus-border"><i></i></span>
             </div>
             <!-- Type Filters -->
             <p class="checkboxes-list-title">Type</p>
             <div class="checkboxes-list">
                <!-- Type Selector -->
-               <div class="md-checkbox">
-                  <input id="checkbox-grass" type="checkbox" value="grass">
-                  <label for="checkbox-grass">
-                     <i class="material-icons" style="color: rgb(120, 200, 80);">lens</i>
-                     <span class="label-title">grass</span>
+               <div class="md-checkbox" v-for="(code, name) in typeColor">
+                  <input :id="'checkbox-' + name" type="checkbox" :value="name" v-model="selectedTypes">
+                  <label :for="'checkbox-' + name">
+                     <em class="material-icons" :style="{'color': typeColor[name]}">lens</em>
+                     <span class="label-title">{{name}}</span>
                   </label>
                </div>
-               <!-- Type Selector -->
-               <div class="md-checkbox">
-                  <input id="checkbox-poison" type="checkbox" value="poison">
-                  <label for="checkbox-poison">
-                     <i class="material-icons" style="color: rgb(160, 64, 160);">lens</i>
-                     <span class="label-title">poison</span>
-                  </label>
-               </div>
-
             </div>
          </aside>
          <!-- Pokemons View -->
@@ -51,40 +42,26 @@
             <!-- Full Pokemons List in: https://api.jsonbin.io/b/5ab37f77989617146bd6eb29 -->
             <article class="pokemons-list">
                <!-- Pokemon Card -->
-               <div class="pokemon-card">
-                  <div class="background-wrapper">
-                     <div style="background-color: rgb(160, 64, 160);"></div>
-                     <div style="background-color: rgb(120, 200, 80);"></div>
+               <div class="pokemon-card" v-for="(pokemon, index) in filteredPokemons" :key="pokemon.id">
+                  <div   class="background-wrapper">
+                     <div v-for="(type, index) in pokemon.types" :key="type" :style="{'background-color': typeColor[type]}"></div>
                   </div>
-                  <span class="remove-pokemon">
-                     <i class="material-icons">close</i>
+                  <span class="remove-pokemon" @click="removePokemon(pokemon)">
+                     <em class="material-icons">close</em>
                   </span> 
                   <div class="image-wrapper">
-                     <img src="images/pokemons/bulbasaur.png" alt="bulbasaur" class="pokemon-image">
+                     <img :src="pokemon.image" :alt="pokemon.name" class="pokemon-image">
                   </div>
                   <div class="pokemon-title">
-                     bulbasaur
+                     {{pokemon.name + ' ' + index}}
                   </div>
                </div>
                <!-- Pokemon Card -->
-               <div class="pokemon-card">
-                  <div class="background-wrapper">
-                     <div style="background-color: rgb(160, 64, 160);"></div>
-                     <div style="background-color: rgb(120, 200, 80);"></div>
-                  </div>
-                  <span class="remove-pokemon">
-                     <i class="material-icons">close</i>
-                  </span> 
-                  <div class="image-wrapper">
-                     <img src="images/pokemons/ivysaur.png" alt="bulbasaur" class="pokemon-image">
-                  </div>
-                  <div class="pokemon-title">
-                     ivysaur
-                  </div>
-               </div>
 
             </article>
          </main>
       </div>
+      <script src="https://unpkg.com/vue"></script>
+      <script src="main.js"></script>
    </body>
 </html>
