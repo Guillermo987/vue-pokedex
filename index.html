@@ -24,6 +24,8 @@
                <input type="text" placeholder="Search by name" class="nice-input" v-model="searchText">
                <span class="focus-border"><i></i></span>
             </div>
+
+            <button @click="addIceType"> Add ICE Type</button>
             <!-- Type Filters -->
             <p class="checkboxes-list-title">Type</p>
             <div class="checkboxes-list">
@@ -53,7 +55,7 @@
                      <img :src="pokemon.image" :alt="pokemon.name" class="pokemon-image">
                   </div>
                   <div class="pokemon-title">
-                     {{pokemon.name + ' ' + index}}
+                     {{pokemon.name + ' ' + index | uppercase}}
                   </div>
                </div>
                <!-- Pokemon Card -->

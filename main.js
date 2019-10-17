@@ -13,7 +13,8 @@ let app = new Vue({
       electric: "#F8D030"
     },
     pokemons: [],
-    selectedTypes: []
+    selectedTypes: [],
+    searchTextToUpperCase: ''
   }),
 
   computed: {
@@ -46,6 +47,10 @@ let app = new Vue({
       this.pokemons = this._arrayRemove(this.pokemons, pokemonToRemove)
     },
 
+    addIceType() {
+      this.$set(this.typeColor, 'ice', "#0000FF")
+    },
+
     /**
      * listener for checkbox value changed
      */
@@ -55,6 +60,18 @@ let app = new Vue({
          return pokemon.types.includes(checked);
       });
       this.pokemons = filtered
+    }
+  },
+
+  filters: {
+    uppercase(value) {
+      return value.toUpperCase();
+    }
+  },
+
+  watch: {
+    searchText() {
+      this.searchTextToUpperCase = this.searchText.toUpperCase();
     }
   },
 
