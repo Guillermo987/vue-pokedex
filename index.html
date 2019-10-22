@@ -43,27 +43,34 @@
          <main class="main-view">
             <!-- Full Pokemons List in: https://api.jsonbin.io/b/5ab37f77989617146bd6eb29 -->
             <article class="pokemons-list">
-               <!-- Pokemon Card -->
-               <div class="pokemon-card" v-for="(pokemon, index) in filteredPokemons" :key="pokemon.id">
-                  <div   class="background-wrapper">
-                     <div v-for="(type, index) in pokemon.types" :key="type" :style="{'background-color': typeColor[type]}"></div>
-                  </div>
-                  <span class="remove-pokemon" @click="removePokemon(pokemon)">
-                     <em class="material-icons">close</em>
-                  </span> 
-                  <div class="image-wrapper">
-                     <img :src="pokemon.image" :alt="pokemon.name" class="pokemon-image">
-                  </div>
-                  <div class="pokemon-title">
-                     {{pokemon.name + ' ' + index | uppercase}}
-                  </div>
-               </div>
-               <!-- Pokemon Card -->
-
+               <!-- Pokemon Card --> 
+               <pokemon-card
+                  v-for="(pokemon, index) in filteredPokemons" 
+                  :key="pokemon.id"
+                  :pokemon="pokemon"
+                  :type-color="typeColor"
+                  @remove="removePokemon"
+               ></pokemon-card>
             </article>
          </main>
       </div>
       <script src="https://unpkg.com/vue"></script>
       <script src="main.js"></script>
+      <script type="text/xtemplate" id="pokemon-card-template">
+         <div class="pokemon-card" >
+            <div class="background-wrapper">
+               <div v-for="(type, index) in pokemon.types" :key="type" :style="{'background-color': typeColor[type]}"></div>
+            </div>
+            <span class="remove-pokemon" @click="removePokemon(pokemon)">
+               <em class="material-icons">close</em>
+            </span> 
+            <div class="image-wrapper">
+               <img :src="pokemon.image" :alt="pokemon.name" class="pokemon-image">
+            </div>
+            <div class="pokemon-title">
+               {{pokemon.name + ' ' + index | uppercase}}
+             </div>
+         </div>
+      </script>
    </body>
 </html>

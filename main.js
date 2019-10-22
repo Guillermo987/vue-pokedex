@@ -1,3 +1,16 @@
+const PokemonCard = {
+  template: '#pokemon-card-template',
+  props: [
+    'pokemon',
+    'typeColor'
+  ],
+  methods: {
+    removePokemon() {
+      this.$emit('remove', this.pokemon);
+    } 
+  }
+}
+
 let app = new Vue({
   el: "#app",
   data: () => ({
@@ -84,6 +97,10 @@ let app = new Vue({
       .then(pokemons => {
         this.pokemons = pokemons;
       });
+  },
+
+  components: {
+    PokemonCard,
   }
 });
 
